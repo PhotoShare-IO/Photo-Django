@@ -13,7 +13,7 @@ jobs:
       with:
         python-version: 3.11
     - run: pip install --upgrade pip
-    - run: pip install "black<23" mypy pep8
+    - run: pip install "black<23" mypy pep8 flake
     - run: black --line-length 79 --check .
     - run: flake .
     - run: mypy --strict .
