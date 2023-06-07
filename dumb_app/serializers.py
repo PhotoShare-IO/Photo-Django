@@ -3,7 +3,6 @@ from .models import DumbModel
 
 
 class DumbSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = DumbModel
         fields = "__all__"

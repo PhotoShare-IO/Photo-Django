@@ -6,7 +6,9 @@ from .serializers import DumbSerializer
 
 # Create your views here.
 
+
 class DumbView(views.APIView):
-    
-    def get(self, request,*args, **kwargs):
-        return Response(DumbSerializer(DumbModel.objects.all(), many=True).data)
+    def get(self, request, *args, **kwargs):
+        return Response(
+            DumbSerializer(DumbModel.objects.all(), many=True).data
+        )

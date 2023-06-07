@@ -4,4 +4,4 @@ from .models import DumbModel
 
 # Register your models here.
 
-admin.site.register(DumbModel) 
+admin.site.register(DumbModel)
