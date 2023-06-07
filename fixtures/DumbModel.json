@@ -1,0 +1,37 @@
+[
+{
+    "model": "dumb_app.dumbmodel",
+    "pk": 1,
+    "fields": {
+        "text": "This is the test text 1"
+    }
+},
+{
+    "model": "dumb_app.dumbmodel",
+    "pk": 2,
+    "fields": {
+        "text": "This is the test text 2"
+    }
+},
+{
+    "model": "dumb_app.dumbmodel",
+    "pk": 3,
+    "fields": {
+        "text": "This is the test text 3"
+    }
+},
+{
+    "model": "dumb_app.dumbmodel",
+    "pk": 4,
+    "fields": {
+        "text": "This is the test text 4"
+    }
+},
+{
+    "model": "dumb_app.dumbmodel",
+    "pk": 5,
+    "fields": {
+        "text": "This is the test text 5"
+    }
+}
+]
