@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "PhotoShare.IO - share your photos with the world!"
 authors = ["mmeerrccyy <taras.mercury@gmail.com>"]
 readme = "README.md"
-packages = [{include = "photo_django"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
