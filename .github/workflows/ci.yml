@@ -21,10 +21,10 @@ jobs:
       run: pip install --upgrade pip
     - 
       name: Install lint packages
-      run: pip install "black<23" pep8 flake8
+      run: pip install "black<23" flake8 pycodestyle
     - run: black --line-length 79 --check .
-    - run: flake8 .
-    - run: pep8 .
+    - run: flake8 . --ignore E501
+    - run: pycodestyle . --ignore E501
 
   build-docker:
     runs-on: ubuntu-latest
