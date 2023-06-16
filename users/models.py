@@ -35,8 +35,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         "Email", unique=True, validators=[EmailValidator]
     )
-    first_name = models.CharField("First name", max_length=150)
-    surname = models.CharField("Second name", max_length=150)
+    username = models.CharField(
+        "Username", max_length=15, blank=True, null=True, unique=True
+    )
+    first_name = models.CharField(
+        "First name", max_length=25, blank=True, null=True
+    )
+    surname = models.CharField(
+        "Second name", max_length=25, blank=True, null=True
+    )
     profile_photo = models.URLField("Avatar", blank=True, null=True)
     is_staff = models.BooleanField(default=False)
 
