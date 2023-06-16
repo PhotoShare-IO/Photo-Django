@@ -15,10 +15,10 @@ class CustomUserManager(UserManager):
         user.password = make_password(password)
         user.save(using=self._db)
         return user
-    
+
     def create_user(self, email=None, password=None, **extra_fields):
         return self._create_user(email, password, **extra_fields)
-    
+
     def create_superuser(self, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -32,7 +32,9 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField("Email", unique=True, validators=[EmailValidator])
+    email = models.EmailField(
+        "Email", unique=True, validators=[EmailValidator]
+    )
     first_name = models.CharField("First name", max_length=150)
     surname = models.CharField("Second name", max_length=150)
     profile_photo = models.URLField("Avatar", blank=True, null=True)
@@ -46,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = "email"
     # unique field for each user
     USERNAME_FIELD = "email"
-    
+
     objects = CustomUserManager()
 
     def get_full_name(self):
