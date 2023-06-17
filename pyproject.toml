@@ -15,6 +15,7 @@ psycopg2-binary = "^2.9.6"
 pre-commit = "^3.3.2"
 django-cors-headers = "^4.0.0"
 djangorestframework-simplejwt = "^5.2.2"
+drf-yasg = "^1.21.6"
 
 
 [tool.poetry.group.dev.dependencies]
