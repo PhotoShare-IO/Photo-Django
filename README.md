@@ -2,7 +2,7 @@
 
 ----
 ## Table of Content
-* **[Local Installing](#nstalling-python-311-via-pyenv-)**
+* **[Local Installing](#installing-python-311-via-pyenv-)**
   * [Installing Python version 3.11](#installing-python-version-311)
   * [Create Virtual Environment](#create-virtual-environment)
   * [Activate Virtual Environment](#activate-virtual-environment)
