@@ -45,4 +45,3 @@ login_schema = openapi.Schema(
     },
     required=["email", "password"],
 )
-
