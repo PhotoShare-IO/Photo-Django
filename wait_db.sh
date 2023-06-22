@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Waiting for postgres..."
 
     while ! nc -z $DATABASE_HOST $DATABASE_PORT; do
@@ -5,7 +7,5 @@ echo "Waiting for postgres..."
     done
 
 echo "PostgreSQL started"
-
-python manage.py migrate
 
 exec "$@"
