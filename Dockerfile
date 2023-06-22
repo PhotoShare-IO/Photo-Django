@@ -12,7 +12,14 @@ RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /usr/src/app/api
 
-COPY . ./
+COPY poetry.lock pyproject.toml ./
 
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
+
+FROM development as production
+
+COPY . ./
+RUN chmod +x ./wait_db.sh
+
+ENTRYPOINT [ "sh", "./entrypoint.sh" ]

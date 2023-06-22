@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "${DATABASE_PORT}:5432"
+  
+  app:
+    build: 
+      context: .
+      target: development
+    init: true
+    command: bash -c "make run-server"
+    volumes:
+      - ./:/usr/src/app/api
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
