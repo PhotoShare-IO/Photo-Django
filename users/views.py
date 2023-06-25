@@ -28,9 +28,7 @@ class RegistrationView(views.APIView):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        return Response(RegisterUserSerializer({
-            "user": user
-        }).data)
+        return Response(RegisterUserSerializer({"user": user}).data)
 
 
 class LoginView(views.APIView):
@@ -61,7 +59,7 @@ class LoginView(views.APIView):
                 }
             ).data
         )
-    
+
 
 class UserAPI(views.APIView):
     permission_classes = [IsAuthenticated]
@@ -73,7 +71,5 @@ class UserAPI(views.APIView):
     def get(self, request, pk=None):
         UserModel = get_user_model()
         user = get_object_or_404(UserModel, pk=pk)
-        serializer = RegisterUserSerializer({
-            "user": user
-        }).data
+        serializer = RegisterUserSerializer({"user": user}).data
         return Response(serializer, status=status.HTTP_200_OK)
