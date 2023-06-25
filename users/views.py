@@ -7,8 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from drf_yasg.utils import swagger_auto_schema
 
-from users.models import User
-
 from .serializers import (
     AuthUserSerializer,
     UserSerializer,
