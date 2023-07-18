@@ -30,25 +30,16 @@ class UserSerializer(serializers.Serializer):
 
 
 class TokenSerializer(serializers.Serializer):
-    access = serializers.CharField(read_only=True, required=False)
-    refresh = serializers.CharField(read_only=True, required=False)
+    access = serializers.CharField(read_only=True)
+    refresh = serializers.CharField(read_only=True)
 
 
 class UserLoginDataSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
     email = serializers.CharField(read_only=True)
     first_name = serializers.CharField(read_only=True)
     last_name = serializers.CharField(read_only=True)
-    username = serializers.CharField()
-
-
-class AuthUserSerializer(serializers.Serializer):
-    user = UserLoginDataSerializer()
+    username = serializers.CharField(read_only=True)
     tokens = TokenSerializer()
-
-
-class RegisterUserSerializer(serializers.Serializer):
-    user = UserLoginDataSerializer()
 
 
 class UserLoginSerializer(serializers.Serializer):
