@@ -31,6 +31,9 @@ jobs:
         envkey_DATABASE_USER: "test_user"
         envkey_DATABASE_PASSWORD: "test_pasword"
         file_name: .env
+        directory: .
+        fail_on_empty: false
+        sort_keys: false
     -
       name: Up backend with docker compose
       uses: isbang/compose-action@v1.4.1
