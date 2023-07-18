@@ -19,6 +19,7 @@ RUN poetry config virtualenvs.create false \
 
 FROM development as production
 
+ENV DATABASE_HOST=db
 COPY . ./
 RUN chmod +x ./wait_db.sh
 

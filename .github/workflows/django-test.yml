@@ -43,6 +43,5 @@ jobs:
       name: Check containers
       run: docker ps -a
     -
-      name: Down containers
-      run: docker kill $(docker ps -q)
-
+      name: Run tests
+      run: docker exec backend bash -c "python manage.py test"
