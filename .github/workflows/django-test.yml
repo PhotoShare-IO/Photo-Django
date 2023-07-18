@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Configuring environment
     steps:
+    - 
+      name: List directories
+      run: ls -a
     -
       name: Up backend with docker compose
       uses: isbang/compose-action@v1.4.1
