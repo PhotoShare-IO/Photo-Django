@@ -1,0 +1,38 @@
+
+name: Django Test in Docker
+on:
+  pull_request:
+    branches:
+      ["main"]
+
+
+jobs:
+  configure-environment:
+    runs-on: ubuntu-latest
+    name: Configuring environment
+    steps:
+    -
+      name: Update packages
+      run: apt update -y
+    -
+      name: Up backend with docker compose
+      uses: isbang/compose-action@1.4.1
+      with: 
+        compose-file: "./docker-compose.yml"
+      env:
+        DEBUG: "1"
+        SECRET_KEY: "secret-value"
+        ALLOWED_HOSTS: "*, http://localhost:8000"
+        CORS_ALLOWED_ORIGINS: "http://localhost:3000, http://localhost:8000"
+        DATABASE_HOST: "db"
+        DATABASE_PORT: 5432
+        DATABASE_NAME: "test_database"
+        DATABASE_USER: "test_user"
+        DATABASE_PASSWORD: "test_pasword"
+    -
+      name: Check containers
+      run: docker ps -a
+    -
+      name: Down containers
+      run: docker kill $(docker ps -q)
+
