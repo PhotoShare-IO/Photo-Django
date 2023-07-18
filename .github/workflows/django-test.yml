@@ -1,0 +1,41 @@
+
+name: Django Test in Docker
+on:
+  pull_request:
+    branches:
+      ["main"]
+
+
+jobs:
+  running-tests:
+    runs-on: ubuntu-latest
+    name: Running tests
+    steps:
+    -
+        name: Checkout
+        uses: actions/checkout@v3
+    -
+      name: Make envfile
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DEBUG: "1"
+        envkey_SECRET_KEY: "secret-value"
+        envkey_ALLOWED_HOSTS: "*, http://localhost:8000"
+        envkey_CORS_ALLOWED_ORIGINS: "http://localhost:3000, http://localhost:8000"
+        envkey_DATABASE_HOST: "db"
+        envkey_DATABASE_PORT: 5432
+        envkey_DATABASE_NAME: "test_database"
+        envkey_DATABASE_USER: "test_user"
+        envkey_DATABASE_PASSWORD: "test_pasword"
+        file_name: .env
+        directory: .
+        fail_on_empty: false
+        sort_keys: false
+    -
+      name: Up backend with docker compose
+      uses: isbang/compose-action@v1.4.1
+      with: 
+        compose-file: "./docker-compose.yml"
+    -
+      name: Run tests
+      run: docker exec backend bash -c "python manage.py test"

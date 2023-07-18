@@ -24,16 +24,21 @@ last_name_field = openapi.Schema(
     description="Last Name Field",
 )
 
+username_field = openapi.Schema(
+    "username", type=openapi.TYPE_STRING, description="Username"
+)
+
 register_schema = openapi.Schema(
     type=openapi.TYPE_OBJECT,
     title="Register Data",
     properties={
         "email": email_field,
         "password": password_field,
+        "username": username_field,
         "first_name": first_name_field,
         "last_name": last_name_field,
     },
-    required=["email", "password"],
+    required=["email", "password", "username"],
 )
 
 login_schema = openapi.Schema(

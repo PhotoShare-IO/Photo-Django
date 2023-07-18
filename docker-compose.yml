@@ -18,6 +18,7 @@ services:
     build: 
       context: .
       target: production
+    container_name: backend
     init: true
     ports:
       - 8000:8000
