@@ -25,9 +25,7 @@ last_name_field = openapi.Schema(
 )
 
 username_field = openapi.Schema(
-    "username",
-    type=openapi.TYPE_STRING,
-    description="Username"
+    "username", type=openapi.TYPE_STRING, description="Username"
 )
 
 register_schema = openapi.Schema(
