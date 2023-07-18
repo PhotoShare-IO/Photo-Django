@@ -16,7 +16,7 @@ jobs:
       run: apt update -y
     -
       name: Up backend with docker compose
-      uses: isbang/compose-action@1.4.1
+      uses: isbang/compose-action@v1.4.1
       with: 
         compose-file: "./docker-compose.yml"
       env:
