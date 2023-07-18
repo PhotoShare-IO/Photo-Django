@@ -7,37 +7,35 @@ on:
 
 
 jobs:
-  configure-environment:
-    runs-on: ubuntu-latest
-    name: Configuring environment
-    steps:
-    -
-      name: Checkout
-      uses: actions/checkout@v3
-    - 
-      name: List directories
-      run: ls -a
-
   running-tests:
     runs-on: ubuntu-latest
-    needs: configure-environment
     name: Running tests
     steps:
+    -
+        name: Checkout
+        uses: actions/checkout@v3
+    - 
+        name: List directories
+        run: ls -a
+    -
+      name: Make envfile
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DEBUG: "1"
+        envkey_SECRET_KEY: "secret-value"
+        envkey_ALLOWED_HOSTS: "*, http://localhost:8000"
+        envkey_CORS_ALLOWED_ORIGINS: "http://localhost:3000, http://localhost:8000"
+        envkey_DATABASE_HOST: "db"
+        envkey_DATABASE_PORT: 5432
+        envkey_DATABASE_NAME: "test_database"
+        envkey_DATABASE_USER: "test_user"
+        envkey_DATABASE_PASSWORD: "test_pasword"
+        file_name: .env
     -
       name: Up backend with docker compose
       uses: isbang/compose-action@v1.4.1
       with: 
         compose-file: "./docker-compose.yml"
-      env:
-        DEBUG: "1"
-        SECRET_KEY: "secret-value"
-        ALLOWED_HOSTS: "*, http://localhost:8000"
-        CORS_ALLOWED_ORIGINS: "http://localhost:3000, http://localhost:8000"
-        DATABASE_HOST: "db"
-        DATABASE_PORT: 5432
-        DATABASE_NAME: "test_database"
-        DATABASE_USER: "test_user"
-        DATABASE_PASSWORD: "test_pasword"
     -
       name: Check containers
       run: docker ps -a
