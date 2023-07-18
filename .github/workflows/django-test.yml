@@ -12,9 +12,6 @@ jobs:
     name: Configuring environment
     steps:
     -
-      name: Update packages
-      run: apt update -y
-    -
       name: Up backend with docker compose
       uses: isbang/compose-action@v1.4.1
       with: 
