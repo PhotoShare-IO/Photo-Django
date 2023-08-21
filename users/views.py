@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 
 from rest_framework import views, serializers
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from drf_yasg.utils import swagger_auto_schema
 
+from .models import User
 from .serializers import (
     UserSerializer,
     UserLoginDataSerializer,
@@ -28,6 +31,7 @@ class RegistrationView(views.APIView):
         return Response(
             UserLoginDataSerializer(
                 {
+                    "id": user.id,
                     "email": user.email,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
@@ -60,6 +64,7 @@ class LoginView(views.APIView):
         return Response(
             UserLoginDataSerializer(
                 {
+                    "id": user.id,
                     "email": user.email,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
@@ -71,3 +76,13 @@ class LoginView(views.APIView):
                 }
             ).data
         )
+
+
+class UserView(views.APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user_id = request.auth.payload["user_id"]
+        user = get_object_or_404(User, pk=user_id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
