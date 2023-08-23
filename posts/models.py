@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from users.models import User
 from utils.models import CreateDatetimeModel
 from utils.functions import truncate_long_text
 
