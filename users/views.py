@@ -19,8 +19,8 @@ from .swagger import register_schema, login_schema
 
 class RegistrationView(views.APIView):
     @swagger_auto_schema(
-        tags=["Auth"],
-        responses={200: UserLoginDataSerializer},
+        tags=["auth"],
+        responses={200: UserLoginDataSerializer()},
         request_body=register_schema,
     )
     def post(self, request, *args, **kwargs):
@@ -46,8 +46,8 @@ class RegistrationView(views.APIView):
 
 class LoginView(views.APIView):
     @swagger_auto_schema(
-        tags=["Auth"],
-        responses={200: UserLoginDataSerializer},
+        tags=["auth"],
+        responses={200: UserLoginDataSerializer()},
         request_body=login_schema,
     )
     def post(self, request, *args, **kwargs):
@@ -81,6 +81,11 @@ class LoginView(views.APIView):
 class UserView(views.APIView):
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(
+        tags=["auth"],
+        response={200: UserSerializer()},
+
+    )
     def get(self, request):
         user_id = request.auth.payload["user_id"]
         user = get_object_or_404(User, pk=user_id)
