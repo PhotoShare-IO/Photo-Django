@@ -84,7 +84,6 @@ class UserView(views.APIView):
     @swagger_auto_schema(
         tags=["auth"],
         response={200: UserSerializer()},
-
     )
     def get(self, request):
         user_id = request.auth.payload["user_id"]
