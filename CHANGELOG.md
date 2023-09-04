@@ -1,4 +1,4 @@
-## 0.0.1-dev
+## 0.1.0
 
 * Added deployment and testing CI
 * Added users logic and API
