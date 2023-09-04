@@ -31,8 +31,7 @@ jobs:
       run: pip install poetry
     -
       name: Get project version
-      id: project_version
-      run: version_var=poetry version -s
+      run: echo "APP_VERSION=$(poetry version -s)" >> $GITHUB_ENV
     -
       name: Build and push
       uses: docker/build-push-action@v4
@@ -40,4 +39,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/photo-django:[${{steps.project_version.outputs.version_var}}]
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/photo-django:${{ secrets.APP_VERSION }}
