@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+
 from utils.models import CreateDatetimeModel
 from utils.functions import truncate_long_text
 
@@ -29,6 +30,12 @@ class PostModel(CreateDatetimeModel):
     )
     description = models.TextField(
         "Description for post", blank=True, null=True
+    )
+    user = models.ForeignKey(
+        get_user_model(),
+        verbose_name="Author",
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     def get_anount_of_likes(self) -> int:
