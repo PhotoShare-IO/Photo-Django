@@ -39,4 +39,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/photo-django:${{ env.APP_VERSION }}
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/photo-django:${{ env.APP_VERSION }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/photo-django:latest
