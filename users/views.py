@@ -8,7 +8,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from drf_yasg.utils import swagger_auto_schema
 
-from .models import User
 from .serializers import (
     UserSerializer,
     UserLoginDataSerializer,
