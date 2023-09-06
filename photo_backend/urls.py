@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
@@ -9,3 +10,6 @@ urlpatterns = [
     path("api/", include("posts.urls"), name="posts-endpoints"),
     path("docs/", swagger_endpoint.with_ui("swagger"), name="swagger-docs"),
 ]
+
+if settings.DEBUG:
+    urlpatterns.insert(0, path("__debug__/", include("debug_toolbar.urls")))

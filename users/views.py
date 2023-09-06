@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.shortcuts import get_object_or_404
 
 from rest_framework import views, serializers
@@ -8,7 +8,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from drf_yasg.utils import swagger_auto_schema
 
-from .models import User
 from .serializers import (
     UserSerializer,
     UserLoginDataSerializer,
@@ -87,6 +86,6 @@ class UserView(views.APIView):
     )
     def get(self, request):
         user_id = request.auth.payload["user_id"]
-        user = get_object_or_404(User, pk=user_id)
+        user = get_object_or_404(get_user_model(), pk=user_id)
         serializer = UserSerializer(user)
         return Response(serializer.data)
