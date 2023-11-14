@@ -3,8 +3,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
 
-if not load_dotenv():
-    raise FileNotFoundError(".env file not found, abort!")
+try:
+    os.environ["SECRET_KEY"]
+except KeyError:
+    if not load_dotenv():
+        raise FileNotFoundError(".env file not found, abort!")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
