@@ -20,7 +20,7 @@ install-all-packages:
 
 .PHONY: run-server
 run-server:
-	python manage.py runserver
+	python manage.py runserver 0.0.0.0:8000
 
 .PHONY: create-admin
 create-admin:

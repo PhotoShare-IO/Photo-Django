@@ -59,5 +59,5 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def get_full_name(self):
-        full_name = f"{self.first_name} {self.surname}"
+        full_name = f"{self.first_name} {self.last_name}"
         return full_name.strip()
