@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PostModel, AlbumModel
+from .models import PostModel
 
 
 class AlbumSerializer(serializers.Serializer):
