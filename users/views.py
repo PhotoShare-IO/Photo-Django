@@ -16,7 +16,9 @@ from .models import User
 from .serializers import (
     UserSerializer,
     UserLoginDataSerializer,
-    UserLoginSerializer, UserPasswordResetSerializer, UserPasswordResetConfirmSerializer,
+    UserLoginSerializer,
+    UserPasswordResetSerializer,
+    UserPasswordResetConfirmSerializer,
 )
 from .swagger import register_schema, login_schema
 from .utils import Util
@@ -109,7 +111,8 @@ class ResetPasswordView(views.APIView):
 
     def create_emaildata(self, user, absolute_url):
         email_body = (
-                "Hello, \n Use link below to reset your password  \n" + absolute_url
+            "Hello, \n Use link below to reset your password  \n"
+            + absolute_url
         )
 
         data = {
