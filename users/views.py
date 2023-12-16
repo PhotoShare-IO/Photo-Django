@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
-from django.utils.encoding import smart_bytes, smart_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import smart_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from rest_framework import views, serializers, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -111,8 +110,7 @@ class ResetPasswordView(views.APIView):
 
     def create_emaildata(self, user, absolute_url):
         email_body = (
-            "Hello, \n Use link below to reset your password  \n"
-            + absolute_url
+            "Hi, \n Use link below to reset your password  \n" + absolute_url
         )
 
         data = {
