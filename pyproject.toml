@@ -17,6 +17,9 @@ django-cors-headers = "^4.0.0"
 djangorestframework-simplejwt = "^5.2.2"
 drf-yasg = "^1.21.6"
 django-debug-toolbar = "^4.2.0"
+celery = "^5.3.6"
+redis = "^5.0.3"
+django-celery-beat = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

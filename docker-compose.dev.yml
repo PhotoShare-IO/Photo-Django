@@ -1,21 +1,8 @@
 version: '3.9'
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-    ports:
-      - "${DATABASE_PORT}:5432"
-  
   app:
-    build: 
+    build:
       context: .
       target: development
     init: true
@@ -26,6 +13,62 @@ services:
       - 8000:8000
     depends_on:
       - db
+
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env.local
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "${DATABASE_PORT}:5432"
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  celery:
+    build:
+      context: .
+      target: development
+    command: celery -A photo_backend worker -l info
+    volumes:
+      - ./:/usr/src/app/api
+    env_file:
+      - .env.local
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - redis
+      - db
+
+  celery-beat:
+    build:
+      context: .
+      target: development
+    command: celery -A photo_backend beat -l info
+    volumes:
+      - ./:/usr/src/app/api
+    env_file:
+      - .env.local
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - redis
+      - db
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: on-failure
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web client
 
 volumes:
   postgres_data:

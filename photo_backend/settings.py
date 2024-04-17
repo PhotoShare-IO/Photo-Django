@@ -6,7 +6,7 @@ from datetime import timedelta
 try:
     os.environ["SECRET_KEY"]
 except KeyError:
-    if not load_dotenv():
+    if not load_dotenv(".env.local"):
         raise FileNotFoundError(".env file not found, abort!")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "django_celery_beat",
     "debug_toolbar",
     "drf_yasg",
     "users",
@@ -154,6 +155,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Celery
+
+CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"]
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
 # JWT Tokens
 
 SIMPLE_JWT = {
@@ -195,8 +201,14 @@ INTERNAL_IPS = [
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+
+# Mailhog
+EMAIL_HOST = os.environ["MAILHOG_HOST"]
+EMAIL_PORT = os.environ["MAILHOG_SMTP_PORT"]
+
+# Gmail SMTP
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
