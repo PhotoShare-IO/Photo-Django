@@ -6,4 +6,6 @@ class NewsConfig(AppConfig):
     name = "news"
 
     def ready(self):
-        import news.signals
+        # This import is important for News model signal that creates celery task.
+        # This import will be ignored with flake8, don't delete it.
+        import news.signals  # noqa: F401
