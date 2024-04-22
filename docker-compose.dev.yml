@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  app:
+    build:
+      context: .
+      target: development
+    init: true
+    command: bash -c "make run-server"
+    volumes:
+      - ./:/usr/src/app/api
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
   db:
     image: postgres
     volumes:
@@ -12,20 +25,50 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-      - "${DATABASE_PORT}:5432"
-  
-  app:
-    build: 
+      - "5432:5432"
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  celery:
+    build:
       context: .
       target: development
-    init: true
-    command: bash -c "make run-server"
+    command: celery -A photo_backend worker -l info
     volumes:
       - ./:/usr/src/app/api
-    ports:
-      - 8000:8000
+    env_file:
+      - .env
+    environment:
+      - DATABASE_HOST=db
     depends_on:
+      - redis
       - db
+
+  celery-beat:
+    build:
+      context: .
+      target: development
+    command: celery -A photo_backend beat -l info
+    volumes:
+      - ./:/usr/src/app/api
+    env_file:
+      - .env
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - redis
+      - db
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: on-failure
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web client
 
 volumes:
   postgres_data:

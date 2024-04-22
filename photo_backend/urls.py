@@ -9,6 +9,11 @@ urlpatterns = [
     path("api/auth/", include("users.urls"), name="user-endpoints"),
     path("api/", include("posts.urls"), name="posts-endpoints"),
     path("docs/", swagger_endpoint.with_ui("swagger"), name="swagger-docs"),
+    path(
+        "ckeditor5/",
+        include("django_ckeditor_5.urls"),
+        name="ck_editor_5_upload_file",
+    ),
 ]
 
 if settings.DEBUG:

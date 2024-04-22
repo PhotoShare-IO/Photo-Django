@@ -20,7 +20,7 @@ from .serializers import (
     UserPasswordResetConfirmSerializer,
 )
 from .swagger import register_schema, login_schema
-from .utils import Util
+from utils.send_email import Util
 
 
 class RegistrationView(views.APIView):
