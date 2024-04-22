@@ -20,7 +20,7 @@ jobs:
       with:
         envkey_DEBUG: "1"
         envkey_SECRET_KEY: "secret-value"
-        envkey_ALLOWED_HOSTS: "*, http://localhost:8000"
+        envkey_DJANGO_ALLOWED_HOSTS: "*, http://localhost:8000"
         envkey_CORS_ALLOWED_ORIGINS: "http://localhost:3000, http://localhost:8000"
         envkey_DATABASE_HOST: "db"
         envkey_DATABASE_PORT: 5432
