@@ -6,7 +6,7 @@ from datetime import timedelta
 try:
     os.environ["SECRET_KEY"]
 except KeyError:
-    if not load_dotenv(".env.local"):
+    if not load_dotenv(".env"):
         raise FileNotFoundError(".env file not found, abort!")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
