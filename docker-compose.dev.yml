@@ -56,7 +56,7 @@ services:
     volumes:
       - ./:/usr/src/app/api
     env_file:
-      - .env.local
+      - .env
     environment:
       - DATABASE_HOST=db
     depends_on:
